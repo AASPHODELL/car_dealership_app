@@ -2,13 +2,10 @@ from rest_framework import permissions
 
 class IsOwner(permissions.BasePermission):
     """
-    Custom permission to only allow owners of an object to edit or delete it.
-    Read-only access is allowed for any request (authenticated or not).
+    Пользовательское разрешение, позволяющее только владельцам объекта редактировать или удалять его.
     """
     def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed to any request, so we'll always allow GET, HEAD, or OPTIONS requests.
-        if request.method in permissions.SAFE_METHODS:
-            return True
 
-        # Write permissions are only allowed to the owner of the snippet.
-        return obj.owner == request.user
+        return obj.owner == request.user # Если владелец объекта совпадает с пользователем из запроса, то True. Иначе - False
+    
+    

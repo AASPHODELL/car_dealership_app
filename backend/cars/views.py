@@ -20,7 +20,7 @@ class CarViewSet(viewsets.ModelViewSet):
         Настройка прав доступа в зависимости от действия.
         """
         if self.action == 'create':
-            # Для создания автомобиля - пользователь должен быть аутентифицирован
+            # Для создания автомобиля - пользователь должен быть аутентифицирован (IsAuthenticated)
             self.permission_classes = [permissions.IsAuthenticated]
         elif self.action in ['update', 'partial_update', 'destroy']:
             # Для обновления или удаления - пользователь должен быть владельцем автомобиля или иметь права администратора
