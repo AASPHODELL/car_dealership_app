@@ -37,9 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # My Apps (Мои приложения)
+    'rest_framework',         # Для создания REST API
+    'rest_framework.authtoken', # Для аутентификации по токенам
+    'drf_yasg',               # Для автоматической документации API (Swagger/Redoc)
+    'corsheaders',            # Для разрешения запросов от React (на другом порту)
+    'cars',                   # Моё приложение для автомобилей
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # CORS
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -120,3 +128,31 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django REST Framework Settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', # Для аутентификации по токену
+        'rest_framework.authentication.SessionAuthentication', # Полезно для Browsable API (удобная страница DRF в браузере)
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny', # По умолчанию разрешаем всем доступ к API (потом ограничим)
+    ]
+}
+
+# CORS Headers Settings (ОЧЕНЬ ВАЖНО для связи с React)
+CORS_ALLOWED_ORIGINS = [
+   "http://localhost:3000",  # Порт, на котором работает React Dev Server
+   "http://127.0.0.1:3000",
+]
+
+# drf-yasg (Swagger/Redoc) Settings
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': { # Название схемы безопасности, будет использоваться в Swagger UI
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
