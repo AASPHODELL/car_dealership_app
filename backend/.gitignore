@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/ # Игнорируем папку виртуального окружения
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django
+*.log
+local_settings.py
+db.sqlite3 # Игнорируем файл базы данных SQLite (для разработки)
+media/ # Игнорируем загруженные пользователем файлы (если будут)
+static/ # Игнорируем собранные статические файлы
+
+# IDEs
+.idea/ # PyCharm
+.vscode/ # VS Code
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
