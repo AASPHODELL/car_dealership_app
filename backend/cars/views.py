@@ -2,6 +2,7 @@ from rest_framework import viewsets, permissions
 from .models import Car
 from .serializers import CarSerializer
 from .permissions import IsOwner # Импортируем наш новый класс разрешений
+from .filters import CarFilter
 
 class CarViewSet(viewsets.ModelViewSet):
     """
@@ -10,6 +11,9 @@ class CarViewSet(viewsets.ModelViewSet):
     """
     queryset = Car.objects.all().order_by('-created_at') # Получаем все автомобили, отсортированные по дате создания
     serializer_class = CarSerializer # Используем наш CarSerializer для преобразования данных
+    filterset_class = CarFilter # Класс фильтров
+    search_fields = ['make', 'model', 'description'] # Поля для SearchFilter
+    ordering_fields = ['price', 'year', 'created_at'] # Поля для OrderingFilter
 
     def get_permissions(self):
         """

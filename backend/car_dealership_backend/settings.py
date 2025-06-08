@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'drf_yasg',               # Для автоматической документации API (Swagger/Redoc)
     'corsheaders',            # Для разрешения запросов от React (на другом порту)
     'cars',                   # Моё приложение для автомобилей
+    'django_filters',         # Фильрация
 ]
 
 MIDDLEWARE = [
@@ -137,7 +138,14 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny', # По умолчанию разрешаем всем доступ к API (потом ограничим)
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend', # Бэкенд фильтрации, который позволяет DRF использовать классы фильтров из django-filter.
+        'rest_framework.filters.SearchFilter', # Встроенный бэкенд DRF для реализации простого текстового поиска по определённым полям
+        'rest_framework.filters.OrderingFilter', # Позволяет сортировать результаты по полям через параметры запроса (?ordering=price)
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', # Настройка пагинации, чтобы API не возвращал сразу тысячи результатов, а разбивал их на страницы
+    'PAGE_SIZE': 10, # Размер страницы для пагинации
 }
 
 # CORS Headers Settings (ОЧЕНЬ ВАЖНО для связи с React)
