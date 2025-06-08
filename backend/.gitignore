@@ -16,7 +16,6 @@ media/ # Игнорируем загруженные пользователем 
 static/ # Игнорируем собранные статические файлы
 
 # IDEs
-.idea/ # PyCharm
 .vscode/ # VS Code
 *.sublime-project
 *.sublime-workspace
